@@ -1,0 +1,3 @@
+[submodule "libs/TTP229"]
+	path = libs/TTP229
+	url = https://github.com/kiryanenko/TTP229.git
