@@ -86,13 +86,15 @@ void Settings::addUserMode() {
 }
 
 void Settings::removeUserMode(uint8_t mode) {
-    if (_user_modes) {
+    if (_user_modes_cnt > 1) {
         mode = mode % _user_modes_cnt;
 
         auto user_modes = new LedLineSettings *[_user_modes_cnt - 1];
         for (uint8_t i = 0; i < _user_modes_cnt; ++i) {
             if (i != mode) {
                 user_modes[i] = _user_modes[i];
+            } else {
+                delete[] _user_modes[i];
             }
         }
 
