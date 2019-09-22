@@ -1,3 +1,9 @@
 [submodule "libs/TTP229"]
 	path = libs/TTP229
 	url = https://github.com/kiryanenko/TTP229.git
+[submodule "libs/EEPROMex"]
+	path = libs/EEPROMex
+	url = https://github.com/thijse/Arduino-EEPROMEx.git
+[submodule "libs/FastLED"]
+	path = libs/FastLED
+	url = https://github.com/FastLED/FastLED.git
