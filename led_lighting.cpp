@@ -19,6 +19,8 @@
 
 #include <Wire.h>
 #include <TTP229.h>
+#include <FastLED.h>
+
 
 TTP229 ttp229;
 

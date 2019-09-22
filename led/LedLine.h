@@ -6,11 +6,6 @@
 #define LED_LIGHTING_LEDLINE_H
 
 
-enum LedMode {
-    SELECTED,       // Режим при выборе ленты для настройки
-    COLOR,          // Режим однотонного цвета
-    RANDOM_COLOR,   // Режим случайного смены цвета
-};
 
 
 class LedLine {
