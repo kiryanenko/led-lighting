@@ -4,10 +4,22 @@
 
 #include "InputManager.h"
 
-InputManager::InputManager() {
+InputManager::InputManager() : _sleep_timer(SLEEP_TIMEOUT) {
 
 }
 
 void InputManager::tick() {
+
+}
+
+void InputManager::inputDetected() {
+    _sleep_timer.reset();
+}
+
+void InputManager::nextMode() {
+
+}
+
+void InputManager::setColor(CRGB) {
 
 }

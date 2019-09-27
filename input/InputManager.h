@@ -8,9 +8,13 @@
 #include "../Settings.h"
 
 class InputManager {
+    GTimer_ms _sleep_timer;
 public:
     InputManager();
     void tick();
+    void inputDetected();
+    void nextMode();
+    void setColor(CRGB);
 };
 
 

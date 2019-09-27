@@ -4,7 +4,8 @@ cmake_minimum_required(VERSION 3.14)
 set(PROJECT_NAME led_lighting)
 
 # Define your project and language
-project(${PROJECT_NAME} C CXX)
+project(${PROJECT_NAME})
+set(CMAKE_CXX_STANDARD 17)
 
 set(${PROJECT_NAME}_BOARD nano328)
 
@@ -14,7 +15,8 @@ link_directories(./libs)
 set(${PROJECT_NAME}_SRCS
         led_lighting.cpp
         Settings.h Settings.cpp
-        input/InputManager.h input/InputManager.cpp)
+        input/InputManager.h input/InputManager.cpp
+        input/EncoderHandler.h input/EncoderHandler.cpp)
 
 # Define the port for uploading code to the Arduino
 set(${PROJECT_NAME}_PORT /dev/ttyUSB1)

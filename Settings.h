@@ -5,14 +5,16 @@
 #ifndef LED_LIGHTING_SETTINGS_H
 #define LED_LIGHTING_SETTINGS_H
 
+#include <FastLED.h>
 #include <pixeltypes.h>
 #include <GyverTimer.h>
 
 
-#define LED_LINES_CNT 3     /// Количество кусков ленты
-#define MODES_CNT  2        /// Количество установленных режимов
-#define USER_MODES_CNT 3    /// Изначальное количество режимов пользователя
-#define SAVE_TIMEOUT 5000   /// Время, через которое будет производиться сохранение в ПЗУ
+#define LED_LINES_CNT 3         /// Количество кусков ленты
+#define MODES_CNT  2            /// Количество установленных режимов
+#define USER_MODES_CNT 3        /// Изначальное количество режимов пользователя
+#define SLEEP_TIMEOUT 18000000  /// Время через которое будет выключаться (5 часов)
+#define SAVE_TIMEOUT 5000       /// Время, через которое будет производиться сохранение в ПЗУ (5 сек)
 
 #define ENCODER_ENABLED
 #define ENCODER_S1 2
