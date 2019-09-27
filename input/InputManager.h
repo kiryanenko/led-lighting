@@ -5,9 +5,12 @@
 #ifndef LED_LIGHTING_INPUTMANAGER_H
 #define LED_LIGHTING_INPUTMANAGER_H
 
+#include "../Settings.h"
 
 class InputManager {
-
+public:
+    InputManager();
+    void tick();
 };
 
 

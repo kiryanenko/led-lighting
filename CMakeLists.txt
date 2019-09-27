@@ -13,7 +13,8 @@ link_directories(./libs)
 # Define the source code
 set(${PROJECT_NAME}_SRCS
         led_lighting.cpp
-        Settings.h Settings.cpp)
+        Settings.h Settings.cpp
+        input/InputManager.h input/InputManager.cpp)
 
 # Define the port for uploading code to the Arduino
 set(${PROJECT_NAME}_PORT /dev/ttyUSB1)

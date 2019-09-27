@@ -14,6 +14,14 @@
 #define USER_MODES_CNT 3    /// Изначальное количество режимов пользователя
 #define SAVE_TIMEOUT 5000   /// Время, через которое будет производиться сохранение в ПЗУ
 
+#define ENCODER_ENABLED
+#define ENCODER_S1 2
+#define ENCODER_S2 3
+#define ENCODER_KEY 4
+#define ENCODER_TYPE 1      /// 0 - полушаговый энкодер, 1 - полношаговый
+
+#define TTP229_ENABLED
+
 
 /// Режимы для всей ленты
 enum Mode {
