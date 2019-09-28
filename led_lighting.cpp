@@ -2,15 +2,18 @@
 // Created by kiryanenko on 14.09.19.
 //
 
+#include <Arduino.h>
 #include <Wire.h>
-#include <GyverEncoder.h>
 #include "Settings.h"
 #include "input/InputManager.h"
-#include "input/EncoderHandler.h"
+#include "led/LedsManager.h"
 
-Settings *settings = Settings::getInstance();
+#ifdef ENCODER_ENABLED
+#include "input/EncoderHandler.h"
+#endif
 
 InputManager input_manager;
+LedsManager leds_manager;
 
 #ifdef ENCODER_ENABLED
 Encoder *encoder;
@@ -21,6 +24,13 @@ void setup()
 {
     Wire.begin();
     Serial.begin(9600);
+
+    pinMode(LED_BUILTIN, OUTPUT);
+
+#ifdef RESET
+    settings->reset();
+#endif
+
 
 #ifdef ENCODER_ENABLED
 #ifdef ENCODER_KEY
@@ -34,11 +44,18 @@ void setup()
 
 void loop()
 {
-    settings->checkCommit();
-
 #ifdef ENCODER_ENABLED
+    encoder->tick();
     encoderHandler.handle(input_manager, *encoder);
 #endif
 
     input_manager.tick();
+    leds_manager.tick();
+
+    settings->checkCommit();
+
+//    digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+//    delay(300);                       // wait for a second
+//    digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+//    delay(300);
 }

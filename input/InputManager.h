@@ -14,7 +14,8 @@ public:
     void tick();
     void inputDetected();
     void nextMode();
-    void setColor(CRGB);
+    CHSV getColor();
+    void setColor(const CHSV& color);
 };
 
 

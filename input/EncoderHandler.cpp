@@ -4,8 +4,19 @@
 
 #include "EncoderHandler.h"
 
-void EncoderHandler::handle(InputManager &manager, Encoder &ttp229)
+void EncoderHandler::handle(InputManager &manager, Encoder &encoder)
 {
-    auto settings = Settings::getInstance();
+    if (encoder.isClick()) {
+        manager.nextMode();
+    }
 
+    if (encoder.isTurn()) {
+        auto color = manager.getColor();
+        if (encoder.isRight()) {
+            color.hue += 6;
+        } else {
+            color.hue -= 6;
+        }
+        manager.setColor(color);
+    }
 }

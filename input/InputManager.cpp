@@ -17,9 +17,23 @@ void InputManager::inputDetected() {
 }
 
 void InputManager::nextMode() {
+    inputDetected();
+    auto settings = Settings::getInstance();
 
+    settings->setCurrentMode(settings->getCurrentMode() + 1);
 }
 
-void InputManager::setColor(CRGB) {
+void InputManager::setColor(const CHSV& color) {
+    inputDetected();
 
+    auto mode_id = settings->getCurrentMode();
+    auto mode = settings->getMode(mode_id);
+    mode.color = color;
+    settings->setMode(mode_id, mode);
+}
+
+CHSV InputManager::getColor() {
+    auto mode_id = settings->getCurrentMode();
+    auto mode = settings->getMode(mode_id);
+    return mode.color;
 }

@@ -5,7 +5,8 @@
 #include "Settings.h"
 #include <EEPROMex.h>
 
-Settings* Settings::_instance = nullptr;
+Settings* Settings::_instance = 0;
+Settings* settings = Settings::getInstance();
 
 void Settings::checkCommit() {
     if (_should_save && _timer.isReady()) {
@@ -20,6 +21,11 @@ void Settings::read() {
     int addr = 0;
     _current_mode = EEPROM.readByte(addr++);
     _user_modes_cnt = EEPROM.readByte(addr++);
+    if (_user_modes_cnt > MAX_USER_MODES_CNT) {
+        reset();
+        return;
+    }
+
     addr += EEPROM.readBlock(addr, _modes, MODES_CNT);
 
     _user_modes = new LedLineSettings* [_user_modes_cnt];
@@ -56,12 +62,28 @@ void Settings::_save() {
 }
 
 Settings::Settings() : _timer(SAVE_TIMEOUT) {
-    _timer.setMode(MANUAL);
+    _timer.setMode(0);
     read();
 }
 
 void Settings::reset() {
+    clearUserModes();
 
+    _current_mode = COLOR;
+    _user_modes_cnt = USER_MODES_CNT;
+
+    for (auto & mode : _modes) {
+        mode.brightness = 200;
+        mode.color = CHSV(HUE_RED, 255, 255);
+        mode.speed = 1;
+    }
+
+    _user_modes = new LedLineSettings* [_user_modes_cnt];
+    for (uint8_t i = 0; i < _user_modes_cnt; ++i) {
+        _user_modes[i] = new LedLineSettings[LED_LINES_CNT];
+    }
+
+    _save();
 }
 
 void Settings::setCurrentMode(uint8_t mode) {

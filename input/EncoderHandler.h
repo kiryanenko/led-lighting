@@ -10,7 +10,7 @@
 
 class EncoderHandler {
 public:
-    void handle(InputManager &manager, Encoder &ttp229);
+    void handle(InputManager &manager, Encoder &encoder);
 };
 
 

@@ -6,13 +6,19 @@
 #define LED_LIGHTING_SETTINGS_H
 
 #include <FastLED.h>
-#include <pixeltypes.h>
+#include <GyverEncoder.h>
 #include <GyverTimer.h>
 
 
+#define RESET                   /// При старте сбросит настройки
+
+#define LEDS_CNT 15             /// Суммарное кол-во светодиодов
 #define LED_LINES_CNT 3         /// Количество кусков ленты
+#define LEDS_PIN 12
+
 #define MODES_CNT  2            /// Количество установленных режимов
 #define USER_MODES_CNT 3        /// Изначальное количество режимов пользователя
+#define MAX_USER_MODES_CNT 30   /// Максимальное количество режимов пользователя
 #define SLEEP_TIMEOUT 18000000  /// Время через которое будет выключаться (5 часов)
 #define SAVE_TIMEOUT 5000       /// Время, через которое будет производиться сохранение в ПЗУ (5 сек)
 
@@ -40,8 +46,8 @@ enum LedLineMode {
 
 
 struct ModeSettings {
-    uint8_t brightness = 255;
-    CRGB color;
+    uint8_t brightness = 200;
+    CHSV color = CHSV(HUE_RED, 255, 255);
     float speed = 1;
 };
 
@@ -58,7 +64,7 @@ class Settings {
     bool _should_save = false;
     GTimer_ms _timer;
 
-    uint8_t _current_mode = 0;
+    uint8_t _current_mode = COLOR;
     uint8_t _user_modes_cnt = USER_MODES_CNT;
 
     ModeSettings _modes[MODES_CNT];
@@ -95,5 +101,7 @@ private:
     void clearUserModes();
 };
 
+
+extern Settings* settings;
 
 #endif //LED_LIGHTING_SETTINGS_H

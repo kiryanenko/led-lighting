@@ -16,10 +16,11 @@ set(${PROJECT_NAME}_SRCS
         led_lighting.cpp
         Settings.h Settings.cpp
         input/InputManager.h input/InputManager.cpp
-        input/EncoderHandler.h input/EncoderHandler.cpp)
+        input/EncoderHandler.h input/EncoderHandler.cpp
+        led/LedsManager.h led/LedsManager.cpp)
 
 # Define the port for uploading code to the Arduino
-set(${PROJECT_NAME}_PORT /dev/ttyUSB1)
+set(${PROJECT_NAME}_PORT /dev/ttyUSB0)
 
 # Command to generate code arduino firmware (.hex file)
 generate_arduino_firmware(${PROJECT_NAME})
