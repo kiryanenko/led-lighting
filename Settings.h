@@ -57,6 +57,7 @@ struct ModeSettings {
     uint8_t brightness = 200;
     CHSV color = CHSV(HUE_RED, 255, 255);
     float speed = 1;
+    float duration = 1;
 };
 
 struct LedLineSettings {

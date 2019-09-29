@@ -33,6 +33,7 @@ void setup()
 {
     Wire.begin();
     Serial.begin(9600);
+    randomSeed(analogRead(0));
 
     pinMode(LED_BUILTIN, OUTPUT);
 
