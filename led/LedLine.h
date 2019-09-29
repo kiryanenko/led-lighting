@@ -6,13 +6,16 @@
 #define LED_LIGHTING_LEDLINE_H
 
 
-
+#include "../Settings.h"
 
 class LedLine {
-    unsigned int _id = 0;
-    unsigned int _first_led_id = 0;
-    unsigned int _last_led_id;
-    double _brightness = 1;
+    CRGB *_leds;
+    int _leds_cnt;
+    LedLineSettings _settings;
+
+public:
+    LedLine(CRGB *leds, int cnt) : _leds(leds), _leds_cnt(cnt) {}
+    void tick();
 };
 
 

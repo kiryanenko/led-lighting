@@ -47,9 +47,9 @@ enum Mode {
 
 /// Режимы для каждого куска ленты
 enum LedLineMode {
-    LINE_SELECTED,       // Режим при выборе ленты для настройки
-    LINE_COLOR,          // Режим однотонного цвета
-    LINE_RANDOM_COLOR,   // Режим случайного смены цвета
+    LINE_SELECTED,                      // Режим при выборе ленты для настройки
+    LINE_COLOR = COLOR,                 // Режим однотонного цвета
+    LINE_RANDOM_COLOR = RANDOM_COLOR,   // Режим случайного смены цвета
 };
 
 

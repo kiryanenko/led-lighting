@@ -10,9 +10,15 @@ LedsManager::LedsManager() {
 
 void LedsManager::tick() {
     auto mode_id = settings->getCurrentMode();
+    auto mode = settings->getMode(mode_id);
     switch (mode_id) {
         case COLOR:
-            auto mode = settings->getMode(mode_id);
+            for (auto & _led : _leds) {
+                _led = mode.color;
+            }
+            FastLED.show();
+            break;
+        case RANDOM_COLOR:
             for (auto & _led : _leds) {
                 _led = mode.color;
             }

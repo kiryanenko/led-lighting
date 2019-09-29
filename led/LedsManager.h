@@ -5,11 +5,11 @@
 #ifndef LED_LIGHTING_LEDSMANAGER_H
 #define LED_LIGHTING_LEDSMANAGER_H
 
-#include "../Settings.h"
+#include "LedLine.h"
 
 class LedsManager {
-private:
     CRGB _leds[LEDS_CNT];
+    LedLine _all_leds;
 
 public:
     LedsManager();
