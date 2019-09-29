@@ -9,6 +9,7 @@
 #include "InputManager.h"
 
 class EncoderHandler {
+    bool _is_brightness_setting = true;
 public:
     void handle(InputManager &manager, Encoder &encoder);
 };
