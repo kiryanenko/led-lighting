@@ -29,6 +29,14 @@
 #define ENCODER_TYPE 1      /// 0 - полушаговый энкодер, 1 - полношаговый
 
 #define TTP229_ENABLED
+#define TTP229_MODE_PIN 0
+#define TTP229_BRIGHTNESS_UP_PIN 9
+#define TTP229_BRIGHTNESS_DOWN_PIN 12
+#define TTP229_SATURATION_UP_PIN 10
+#define TTP229_SATURATION_DOWN_PIN 7
+#define TTP229_SPEED_UP_PIN 10
+#define TTP229_SPEED_DOWN_PIN 7
+#define TTP229_RESET_PIN 14
 
 
 /// Режимы для всей ленты

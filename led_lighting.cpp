@@ -12,12 +12,21 @@
 #include "input/EncoderHandler.h"
 #endif
 
+#ifdef TTP229_ENABLED
+#include "input/TTP229Handler.h"
+#endif
+
 InputManager input_manager;
 LedsManager leds_manager;
 
 #ifdef ENCODER_ENABLED
 Encoder *encoder;
 EncoderHandler encoderHandler;
+#endif
+
+#ifdef TTP229_ENABLED
+TTP229 ttp229;
+TTP229Handler ttp229_handler;
 #endif
 
 void setup()
@@ -47,6 +56,11 @@ void loop()
 #ifdef ENCODER_ENABLED
     encoder->tick();
     encoderHandler.handle(input_manager, *encoder);
+#endif
+
+#ifdef TTP229_ENABLED
+    ttp229.readKeys();
+    ttp229_handler.handle(input_manager, ttp229);
 #endif
 
     input_manager.tick();

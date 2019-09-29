@@ -17,6 +17,7 @@ set(${PROJECT_NAME}_SRCS
         Settings.h Settings.cpp
         input/InputManager.h input/InputManager.cpp
         input/EncoderHandler.h input/EncoderHandler.cpp
+        input/TTP229Handler.h input/TTP229Handler.cpp
         led/LedsManager.h led/LedsManager.cpp)
 
 # Define the port for uploading code to the Arduino
