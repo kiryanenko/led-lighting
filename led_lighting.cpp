@@ -10,24 +10,17 @@
 
 #ifdef ENCODER_ENABLED
 #include "input/EncoderHandler.h"
+EncoderHandler encoderHandler;
 #endif
 
 #ifdef TTP229_ENABLED
 #include "input/TTP229Handler.h"
+TTP229Handler ttp229_handler;
 #endif
 
 InputManager input_manager;
 LedsManager leds_manager;
 
-#ifdef ENCODER_ENABLED
-Encoder *encoder;
-EncoderHandler encoderHandler;
-#endif
-
-#ifdef TTP229_ENABLED
-TTP229 ttp229;
-TTP229Handler ttp229_handler;
-#endif
 
 void setup()
 {
@@ -43,20 +36,15 @@ void setup()
 
 
 #ifdef ENCODER_ENABLED
-#ifdef ENCODER_KEY
-    encoder = new Encoder(ENCODER_S1, ENCODER_S2, ENCODER_KEY);
-#else
-    encoder = new Encoder(ENCODER_S1, ENCODER_S2);
-#endif
-    encoder->setType((modes) ENCODER_TYPE);
+    encoder.setType((modes) ENCODER_TYPE);
 #endif
 }
 
 void loop()
 {
 #ifdef ENCODER_ENABLED
-    encoder->tick();
-    encoderHandler.handle(input_manager, *encoder);
+    encoder.tick();
+    encoderHandler.handle(input_manager, encoder);
 #endif
 
 #ifdef TTP229_ENABLED
@@ -64,6 +52,7 @@ void loop()
     ttp229_handler.handle(input_manager, ttp229);
 #endif
 
+    blinker.tick();
     input_manager.tick();
     leds_manager.tick();
 

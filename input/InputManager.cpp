@@ -37,3 +37,7 @@ CHSV InputManager::getColor() {
     auto mode = settings->getMode(mode_id);
     return mode.color;
 }
+
+bool InputManager::isMode(Mode mode) {
+    return settings->getCurrentMode() == mode;
+}

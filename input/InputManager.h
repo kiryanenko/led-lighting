@@ -13,9 +13,18 @@ public:
     InputManager();
     void tick();
     void inputDetected();
+
+    bool isMode(Mode mode);
     void nextMode();
+
     CHSV getColor();
     void setColor(const CHSV& color);
+
+    float getSpeed();
+    void setSpeed(float speed);
+
+    float getDuration();
+    void setDuration(float duration);
 };
 
 

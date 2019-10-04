@@ -5,12 +5,7 @@
 #ifndef LED_LIGHTING_SETTINGS_H
 #define LED_LIGHTING_SETTINGS_H
 
-#include <FastLED.h>
-#include <GyverEncoder.h>
-#include <GyverTimer.h>
-
-
-#define RESET                   /// При старте сбросит настройки
+#define RESET                   /// При старте сбросить настройки
 
 #define LEDS_CNT 15             /// Суммарное кол-во светодиодов
 #define LED_LINES_CNT 3         /// Количество кусков ленты
@@ -21,12 +16,22 @@
 #define MAX_USER_MODES_CNT 30   /// Максимальное количество режимов пользователя
 #define SLEEP_TIMEOUT 18000000  /// Время через которое будет выключаться (5 часов)
 #define SAVE_TIMEOUT 5000       /// Время, через которое будет производиться сохранение в ПЗУ (5 сек)
+#define FRAME_TIME 10           /// Время 1 кадра (мс)
+#define BASE_TIME_UNIT 60000    /// Базовая единица времени (1 мин)
 
 #define ENCODER_ENABLED
 #define ENCODER_S1 2
 #define ENCODER_S2 3
 #define ENCODER_KEY 4
 #define ENCODER_TYPE 1      /// 0 - полушаговый энкодер, 1 - полношаговый
+#ifdef ENCODER_ENABLED
+#include <GyverEncoder.h>
+#ifdef ENCODER_KEY
+Encoder encoder(ENCODER_S1, ENCODER_S2, ENCODER_KEY);
+#else
+Encoder encoder(ENCODER_S1, ENCODER_S2);
+#endif
+#endif
 
 #define TTP229_ENABLED
 #define TTP229_MODE_PIN 0
@@ -36,7 +41,25 @@
 #define TTP229_SATURATION_DOWN_PIN 7
 #define TTP229_SPEED_UP_PIN 10
 #define TTP229_SPEED_DOWN_PIN 7
+#define TTP229_DURATION_UP_PIN 3
+#define TTP229_DURATION_DOWN_PIN 6
 #define TTP229_RESET_PIN 14
+#ifdef TTP229_ENABLED
+#include "input/TTP229Handler.h"
+TTP229 ttp229;
+#endif
+
+/// Время переключения цвета (мс)
+const float COLOR_CHANGE_TIMES[] = {5000, 10000, 15000, 30000, 60000, 300000, 600000, 1800000};
+/// Время перехода цвета (мс)
+const float TRANSITION_TIMES[] = {0, 1000, 3000, 5000, 10000, 1800000};
+
+#include <FastLED.h>
+#include <GyverTimer.h>
+#include "led/Blinker.h"
+
+
+Blinker blinker;
 
 
 /// Режимы для всей ленты
@@ -58,11 +81,26 @@ struct ModeSettings {
     CHSV color = CHSV(HUE_RED, 255, 255);
     float speed = 1;
     float duration = 1;
+
+    bool operator==(const ModeSettings& settings) {
+        return brightness == settings.brightness &&
+            color == settings.color &&
+            speed == settings.speed &&
+            duration == settings.duration;
+    }
 };
 
 struct LedLineSettings {
     LedLineMode mode = LINE_COLOR;
     ModeSettings settings;
+
+    bool operator==(const LedLineSettings& lineSettings) {
+        return mode == lineSettings.mode && settings == lineSettings.settings;
+    }
+
+    bool operator!=(const LedLineSettings& lineSettings) {
+        return !(*this == lineSettings);
+    }
 };
 
 
