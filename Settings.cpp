@@ -89,7 +89,6 @@ void Settings::reset() {
     _user_modes_cnt = USER_MODES_CNT;
 
     for (auto & mode : _modes) {
-        mode.brightness = 200;
         mode.color = CHSV(HUE_RED, 255, 255);
         mode.speed = 1;
     }

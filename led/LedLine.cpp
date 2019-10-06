@@ -18,7 +18,7 @@ bool LedLine::update(const LedLineSettings &lineSettings, bool forceUpdate) {
         case LINE_RANDOM_COLOR:
             if (_settings != lineSettings || _timer.isReady()) {
                 _timer.reset();
-                _dst = randomHSV(lineSettings.settings.brightness);
+                _dst = randomHSV(lineSettings.settings.color.value);
 
                 auto duration = constrain(lineSettings.settings.duration, COLOR_CHANGE_TIMES[0], COLOR_CHANGE_TIMES[COLOR_CHANGE_TIMES_CNT - 1]);
                 _timer.setInterval(lineSettings.settings.duration);
