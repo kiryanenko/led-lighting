@@ -4,7 +4,7 @@
 
 #include "InputManager.h"
 
-InputManager::InputManager() : _sleep_timer(SLEEP_TIMEOUT) {
+InputManager::InputManager() : _sleep_timer(SLEEP_TIMEOUT), _printTimer(SAVE_TIMEOUT) {
 
 }
 
@@ -38,7 +38,11 @@ void InputManager::setModeSettings(const ModeSettings &modeSettings) {
     inputDetected();
     auto mode_id = settings->getCurrentMode();
     settings->setMode(mode_id, modeSettings);
-    printSettings();
+
+    if (_printTimer.isReady()){
+        _printTimer.reset();
+        printSettings();
+    }
 }
 
 void InputManager::printSettings() {

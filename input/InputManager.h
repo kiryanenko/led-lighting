@@ -9,6 +9,8 @@
 
 class InputManager {
     SimpleTimer _sleep_timer;
+    SimpleTimer _printTimer;
+
 public:
     InputManager();
     void tick();
