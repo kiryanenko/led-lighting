@@ -10,6 +10,7 @@
 class LedsManager {
     CRGB _leds[LEDS_CNT];
     LedLine _all_leds;
+    SimpleTimer _frame_timer;
 
 public:
     LedsManager();

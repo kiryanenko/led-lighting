@@ -19,7 +19,7 @@ TTP229Handler ttp229_handler;
 #endif
 
 InputManager input_manager;
-LedsManager leds_manager;
+LedsManager *leds_manager;
 
 
 void setup()
@@ -28,16 +28,15 @@ void setup()
     Serial.begin(9600);
     randomSeed(analogRead(0));
 
-    pinMode(LED_BUILTIN, OUTPUT);
-
 #ifdef RESET
     settings->reset();
 #endif
 
-
 #ifdef ENCODER_ENABLED
     encoder.setType((modes) ENCODER_TYPE);
 #endif
+
+    leds_manager = new LedsManager;
 }
 
 void loop()
@@ -55,7 +54,7 @@ void loop()
     input_manager.tick();
 
     blinker.tick();
-    leds_manager.tick();
+    leds_manager->tick();
 
     settings->checkCommit();
 

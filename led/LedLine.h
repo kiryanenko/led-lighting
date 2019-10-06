@@ -65,14 +65,13 @@ class LedLine {
     DHSV _color_hsv;
     DRGB _color_rgb;
 
-    SimpleTimer _frame_timer;
     SimpleTimer _timer;
     CHSV _dst;
     DRGB _delta;
 
 public:
-    LedLine(CRGB *leds, int cnt) : _leds(leds), _leds_cnt(cnt), _frame_timer(FRAME_TIME) {}
-    void update(const LedLineSettings &settings);
+    LedLine(CRGB *leds, int cnt) : _leds(leds), _leds_cnt(cnt) {}
+    bool update(const LedLineSettings &settings, bool forceUpdate = false);
 
 private:
     void setSolidColor(const DHSV& color);
