@@ -9,6 +9,33 @@
 #include "../Settings.h"
 
 
+struct DRGB {
+    double red = 0;
+    double green = 100;
+    double blue = 100;
+
+    DRGB() = default;
+    DRGB(const CRGB& rgb) : red(rgb.red), green(rgb.green), blue(rgb.blue) {}
+
+    operator CRGB() const {
+        return CRGB(red, green, blue);
+    }
+
+    inline void clean() {
+        red = clean(red);
+        green = clean(green);
+        blue = clean(blue);
+    }
+
+    static inline double clean(double value) {
+        long intPart = value;
+        double floatPart = value - intPart;
+        double res = abs(intPart) % 256 + abs(floatPart);
+        return value > 0 ? res : 256 - res;
+    }
+};
+
+
 struct DHSV {
     double hue = 0;
     double saturation = 255;
