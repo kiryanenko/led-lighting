@@ -49,7 +49,7 @@ extern TTP229 ttp229;
 const float COLOR_CHANGE_TIMES[] = {5000, 10000, 15000, 30000, 60000, 300000, 600000, 1800000};
 const uint8_t COLOR_CHANGE_TIMES_CNT = sizeof(COLOR_CHANGE_TIMES) / sizeof(float);
 /// Время перехода цвета (мс)
-const float TRANSITION_TIMES[] = {0, 500, 1000, 3000, 5000, COLOR_CHANGE_TIMES[COLOR_CHANGE_TIMES_CNT - 1]};
+const float TRANSITION_TIMES[] = {250, 500, 1000, 3000, 5000, COLOR_CHANGE_TIMES[COLOR_CHANGE_TIMES_CNT - 1]};
 const uint8_t TRANSITION_TIMES_CNT = sizeof(TRANSITION_TIMES) / sizeof(float);
 
 #include <FastLED.h>

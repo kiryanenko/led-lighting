@@ -71,11 +71,13 @@ class LedLine {
 
 public:
     LedLine(CRGB *leds, int cnt) : _leds(leds), _leds_cnt(cnt) {}
-    bool update(const LedLineSettings &settings, bool forceUpdate = false);
+    bool update(const LedLineSettings &lineSettings, bool forceUpdate = false);
 
 private:
     void setSolidColor(const DHSV& color);
     void setSolidColor(const DRGB& color);
+
+    DRGB setColorRandom(const CRGB& dst, const LedLineSettings &lineSettings);
 };
 
 
