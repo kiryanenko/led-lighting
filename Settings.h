@@ -16,7 +16,7 @@
 #define MAX_USER_MODES_CNT 30   /// Максимальное количество режимов пользователя
 #define SLEEP_TIMEOUT 18000000  /// Время через которое будет выключаться (5 часов)
 #define SAVE_TIMEOUT 5000       /// Время, через которое будет производиться сохранение в ПЗУ (5 сек)
-#define FRAME_TIME 10           /// Время 1 кадра (мс)
+#define FRAME_TIME 20           /// Время 1 кадра (мс)
 #define BASE_TIME_UNIT 60000    /// Базовая единица времени (1 мин)
 
 #define ENCODER_ENABLED
@@ -47,8 +47,10 @@ extern TTP229 ttp229;
 
 /// Время переключения цвета (мс)
 const float COLOR_CHANGE_TIMES[] = {5000, 10000, 15000, 30000, 60000, 300000, 600000, 1800000};
+const uint8_t COLOR_CHANGE_TIMES_CNT = sizeof(COLOR_CHANGE_TIMES) / sizeof(float);
 /// Время перехода цвета (мс)
-const float TRANSITION_TIMES[] = {0, 1000, 3000, 5000, 10000, 1800000};
+const float TRANSITION_TIMES[] = {0, 500, 1000, 3000, 5000, 1800000};
+const uint8_t TRANSITION_TIMES_CNT = sizeof(TRANSITION_TIMES) / sizeof(float);
 
 #include <FastLED.h>
 #include <SimpleTimer.h>

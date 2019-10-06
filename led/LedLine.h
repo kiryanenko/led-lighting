@@ -7,7 +7,11 @@
 
 
 #include "../Settings.h"
+#include "../utils.h"
 
+
+struct DRGB;
+struct DHSV;
 
 struct DRGB {
     double red = 0;
@@ -18,20 +22,13 @@ struct DRGB {
     DRGB(const CRGB& rgb) : red(rgb.red), green(rgb.green), blue(rgb.blue) {}
 
     operator CRGB() const {
-        return CRGB(red, green, blue);
+        return CRGB(cleanColorPart(red), cleanColorPart(green), cleanColorPart(blue));
     }
 
     inline void clean() {
-        red = clean(red);
-        green = clean(green);
-        blue = clean(blue);
-    }
-
-    static inline double clean(double value) {
-        long intPart = value;
-        double floatPart = value - intPart;
-        double res = abs(intPart) % 256 + abs(floatPart);
-        return value > 0 ? res : 256 - res;
+        red = cleanColorPart(red);
+        green = cleanColorPart(green);
+        blue = cleanColorPart(blue);
     }
 };
 
@@ -45,20 +42,17 @@ struct DHSV {
     DHSV(const CHSV& hsv) : hue(hsv.hue), saturation(hsv.saturation), value(hsv.value) {}
 
     operator CHSV() const {
-        return CHSV(hue, saturation, value);
+        return CHSV(cleanColorPart(hue), cleanColorPart(saturation), cleanColorPart(value));
     }
 
     inline void clean() {
-        hue = clean(hue);
-        saturation = clean(saturation);
-        value = clean(value);
+        hue = cleanColorPart(hue);
+        saturation = cleanColorPart(saturation);
+        value = cleanColorPart(value);
     }
 
-    static inline double clean(double value) {
-        long intPart = value;
-        double floatPart = value - intPart;
-        double res = abs(intPart) % 256 + abs(floatPart);
-        return value > 0 ? res : 256 - res;
+    CRGB rgb() {
+        return CRGB(*this);
     }
 };
 
@@ -67,12 +61,14 @@ class LedLine {
     CRGB *_leds;
     int _leds_cnt;
     LedLineSettings _settings;  // Выставленные настройки
-    DHSV _color;                // Текущий цвет
+    // Текущий цвет
+    DHSV _color_hsv;
+    DRGB _color_rgb;
 
     SimpleTimer _frame_timer;
     SimpleTimer _timer;
     CHSV _dst;
-    DHSV _delta;
+    DRGB _delta;
 
 public:
     LedLine(CRGB *leds, int cnt) : _leds(leds), _leds_cnt(cnt), _frame_timer(FRAME_TIME) {}
@@ -80,6 +76,7 @@ public:
 
 private:
     void setSolidColor(const DHSV& color);
+    void setSolidColor(const DRGB& color);
 };
 
 
