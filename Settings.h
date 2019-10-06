@@ -26,27 +26,23 @@
 #define ENCODER_TYPE 1      /// 0 - полушаговый энкодер, 1 - полношаговый
 #ifdef ENCODER_ENABLED
 #include <GyverEncoder.h>
-#ifdef ENCODER_KEY
-Encoder encoder(ENCODER_S1, ENCODER_S2, ENCODER_KEY);
-#else
-Encoder encoder(ENCODER_S1, ENCODER_S2);
-#endif
+extern Encoder encoder;
 #endif
 
 #define TTP229_ENABLED
 #define TTP229_MODE_PIN 0
 #define TTP229_BRIGHTNESS_UP_PIN 9
 #define TTP229_BRIGHTNESS_DOWN_PIN 12
-#define TTP229_SATURATION_UP_PIN 10
-#define TTP229_SATURATION_DOWN_PIN 7
+#define TTP229_SATURATION_UP_PIN 2
+#define TTP229_SATURATION_DOWN_PIN 5
 #define TTP229_SPEED_UP_PIN 10
 #define TTP229_SPEED_DOWN_PIN 7
 #define TTP229_DURATION_UP_PIN 3
 #define TTP229_DURATION_DOWN_PIN 6
 #define TTP229_RESET_PIN 14
 #ifdef TTP229_ENABLED
-#include "input/TTP229Handler.h"
-TTP229 ttp229;
+#include <TTP229.h>
+extern TTP229 ttp229;
 #endif
 
 /// Время переключения цвета (мс)
@@ -55,11 +51,11 @@ const float COLOR_CHANGE_TIMES[] = {5000, 10000, 15000, 30000, 60000, 300000, 60
 const float TRANSITION_TIMES[] = {0, 1000, 3000, 5000, 10000, 1800000};
 
 #include <FastLED.h>
-#include <GyverTimer.h>
+#include <SimpleTimer.h>
 #include "led/Blinker.h"
 
 
-Blinker blinker;
+extern Blinker blinker;
 
 
 /// Режимы для всей ленты
@@ -109,7 +105,7 @@ class Settings {
     static Settings * _instance;
 
     bool _should_save = false;
-    GTimer_ms _timer;
+    SimpleTimer _timer;
 
     uint8_t _current_mode = COLOR;
     uint8_t _user_modes_cnt = USER_MODES_CNT;

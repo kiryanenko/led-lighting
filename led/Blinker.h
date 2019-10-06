@@ -6,13 +6,13 @@
 #define LED_LIGHTING_BLINKER_H
 
 #include <Arduino.h>
-#include <GyverTimer.h>
+#include <SimpleTimer.h>
 
-#define BLINK_PERIOD 400
+#define BLINK_PERIOD 200
 
 class Blinker {
     uint8_t _pin = LED_BUILTIN;
-    GTimer_ms _timer;
+    SimpleTimer _timer;
     uint8_t _blink_cnt = 0;
     bool is_high = false;
 

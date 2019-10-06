@@ -52,8 +52,9 @@ void loop()
     ttp229_handler.handle(input_manager, ttp229);
 #endif
 
-    blinker.tick();
     input_manager.tick();
+
+    blinker.tick();
     leds_manager.tick();
 
     settings->checkCommit();

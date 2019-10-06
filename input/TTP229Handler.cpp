@@ -10,6 +10,8 @@ void TTP229Handler::handle(InputManager &manager, TTP229 &ttp229) {
         manager.inputDetected();
     }
 
+    auto modeSettings = manager.getModeSettings();
+
     // Режим
     if (ttp229.isKeyUp(TTP229_MODE_PIN)) {
         manager.nextMode();
@@ -19,43 +21,63 @@ void TTP229Handler::handle(InputManager &manager, TTP229 &ttp229) {
     // Яркость
     if (ttp229.isKeyDown(TTP229_BRIGHTNESS_UP_PIN) || (ttp229.isKeyPress(TTP229_BRIGHTNESS_UP_PIN) && _press_timer.isReady())) {
         _press_timer.reset();
-        auto color = manager.getColor();
-        color.value = constrain(color.value + 1, 0, 255);
-        manager.setColor(color);
+        modeSettings.color.value = constrain(modeSettings.color.value + 1, 0, 255);
+        manager.setModeSettings(modeSettings);
         return;
     }
     if (ttp229.isKeyDown(TTP229_BRIGHTNESS_DOWN_PIN) || (ttp229.isKeyPress(TTP229_BRIGHTNESS_DOWN_PIN) && _press_timer.isReady())) {
         _press_timer.reset();
-        auto color = manager.getColor();
-        color.value = constrain(color.value - 1, 0, 255);
-        manager.setColor(color);
+        modeSettings.color.value = constrain(modeSettings.color.value - 1, 0, 255);
+        manager.setModeSettings(modeSettings);
         return;
     }
 
     // Насыщенность
     if (ttp229.isKeyDown(TTP229_SATURATION_UP_PIN) || (ttp229.isKeyPress(TTP229_SATURATION_UP_PIN) && _press_timer.isReady())) {
         _press_timer.reset();
-        auto color = manager.getColor();
-        color.saturation = constrain(color.saturation + 1, 0, 255);
-        manager.setColor(color);
+        modeSettings.color.saturation = constrain(modeSettings.color.saturation + 1, 0, 255);
+        manager.setModeSettings(modeSettings);
         return;
     }
     if (ttp229.isKeyDown(TTP229_SATURATION_DOWN_PIN) || (ttp229.isKeyPress(TTP229_SATURATION_DOWN_PIN) && _press_timer.isReady())) {
         _press_timer.reset();
-        auto color = manager.getColor();
-        color.saturation = constrain(color.saturation - 1, 0, 255);
-        manager.setColor(color);
+        modeSettings.color.saturation = constrain(modeSettings.color.saturation - 1, 0, 255);
+        manager.setModeSettings(modeSettings);
         return;
     }
 
 
+    // Скорость
     if (ttp229.isKeyUp(TTP229_SPEED_UP_PIN)) {
-        auto modeId = settings->getCurrentMode();
         if (manager.isMode(RANDOM_COLOR)) {
-            auto settingId = nearestId(manager.get)
+            modeSettings.speed = prev(modeSettings.speed, TRANSITION_TIMES, sizeof(TRANSITION_TIMES) / sizeof(float));
+            manager.setModeSettings(modeSettings);
+            return;
         }
-        manager.nextMode();
-        return;
+    }
+    if (ttp229.isKeyUp(TTP229_SPEED_DOWN_PIN)) {
+        if (manager.isMode(RANDOM_COLOR)) {
+            modeSettings.speed = next(modeSettings.speed, TRANSITION_TIMES, sizeof(TRANSITION_TIMES) / sizeof(float));
+            manager.setModeSettings(modeSettings);
+            return;
+        }
+    }
+
+
+    // Продолжительность
+    if (ttp229.isKeyUp(TTP229_DURATION_UP_PIN)) {
+        if (manager.isMode(RANDOM_COLOR)) {
+            modeSettings.duration = next(modeSettings.duration, COLOR_CHANGE_TIMES, sizeof(COLOR_CHANGE_TIMES) / sizeof(float));
+            manager.setModeSettings(modeSettings);
+            return;
+        }
+    }
+    if (ttp229.isKeyUp(TTP229_DURATION_DOWN_PIN)) {
+        if (manager.isMode(RANDOM_COLOR)) {
+            modeSettings.duration = prev(modeSettings.duration, COLOR_CHANGE_TIMES, sizeof(COLOR_CHANGE_TIMES) / sizeof(float));
+            manager.setModeSettings(modeSettings);
+            return;
+        }
     }
 
 

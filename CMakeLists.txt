@@ -14,7 +14,7 @@ link_directories(./libs)
 # Define the source code
 set(${PROJECT_NAME}_SRCS
         led_lighting.cpp
-        utils.h
+        utils.h utils.cpp
         Settings.h Settings.cpp
         input/InputManager.h input/InputManager.cpp
         input/EncoderHandler.h input/EncoderHandler.cpp

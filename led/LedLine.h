@@ -20,6 +20,19 @@ struct DHSV {
     operator CHSV() const {
         return CHSV(hue, saturation, value);
     }
+
+    inline void clean() {
+        hue = clean(hue);
+        saturation = clean(saturation);
+        value = clean(value);
+    }
+
+    static inline double clean(double value) {
+        long intPart = value;
+        double floatPart = value - intPart;
+        double res = abs(intPart) % 256 + abs(floatPart);
+        return value > 0 ? res : 256 - res;
+    }
 };
 
 
@@ -29,8 +42,8 @@ class LedLine {
     LedLineSettings _settings;  // Выставленные настройки
     DHSV _color;                // Текущий цвет
 
-    GTimer_ms _frame_timer;
-    GTimer_ms _timer;
+    SimpleTimer _frame_timer;
+    SimpleTimer _timer;
     CHSV _dst;
     DHSV _delta;
 
@@ -42,9 +55,5 @@ private:
     void setSolidColor(const DHSV& color);
 };
 
-
-CHSV randomHSV(uint8_t brightness) {
-    return CHSV(random8(), random8(), brightness);
-}
 
 #endif //LED_LIGHTING_LEDLINE_H

@@ -7,3 +7,6 @@
 [submodule "libs/FastLED"]
 	path = libs/FastLED
 	url = https://github.com/kiryanenko/FastLED.git
+[submodule "libs/SimpleTimer"]
+	path = libs/SimpleTimer
+	url = https://github.com/kiryanenko/SimpleTimer.git

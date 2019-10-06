@@ -16,6 +16,7 @@ void Blinker::blink(uint8_t cnt) {
 
 void Blinker::tick() {
     if (_blink_cnt > 0 && _timer.isReady()) {
+        _timer.reset();
         is_high = !is_high;
         digitalWrite(_pin, is_high);
         if (!is_high) {

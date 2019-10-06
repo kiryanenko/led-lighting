@@ -9,8 +9,8 @@
 #include "InputManager.h"
 
 class TTP229Handler {
-    GTimer_ms _press_timer;
-    GTimer_ms _reset_timer;
+    SimpleTimer _press_timer;
+    SimpleTimer _reset_timer;
 
 public:
     TTP229Handler() : _press_timer(FRAME_TIME), _reset_timer(3000) {}

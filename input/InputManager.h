@@ -8,7 +8,7 @@
 #include "../Settings.h"
 
 class InputManager {
-    GTimer_ms _sleep_timer;
+    SimpleTimer _sleep_timer;
 public:
     InputManager();
     void tick();
@@ -16,15 +16,10 @@ public:
 
     bool isMode(Mode mode);
     void nextMode();
+    ModeSettings getModeSettings();
+    void setModeSettings(const ModeSettings & modeSettings);
 
-    CHSV getColor();
-    void setColor(const CHSV& color);
-
-    float getSpeed();
-    void setSpeed(float speed);
-
-    float getDuration();
-    void setDuration(float duration);
+    void printSettings();
 };
 
 

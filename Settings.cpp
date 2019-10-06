@@ -5,8 +5,23 @@
 #include "Settings.h"
 #include <EEPROMex.h>
 
-Settings* Settings::_instance = 0;
+Settings* Settings::_instance = nullptr;
 Settings* settings = Settings::getInstance();
+
+#ifdef TTP229_ENABLED
+#ifdef ENCODER_KEY
+Encoder encoder(ENCODER_S1, ENCODER_S2, ENCODER_KEY);
+#else
+Encoder encoder(ENCODER_S1, ENCODER_S2);
+#endif
+#endif
+
+#ifdef TTP229_ENABLED
+TTP229 ttp229;
+#endif
+
+Blinker blinker;
+
 
 void Settings::checkCommit() {
     if (_should_save && _timer.isReady()) {
@@ -45,6 +60,8 @@ void Settings::save(bool force_save) {
 
 
 void Settings::_save() {
+    Serial.println("Save");
+
     int addr = 0;
     EEPROM.updateByte(addr++, _current_mode);
     EEPROM.updateByte(addr++, _user_modes_cnt);
@@ -62,7 +79,6 @@ void Settings::_save() {
 }
 
 Settings::Settings() : _timer(SAVE_TIMEOUT) {
-    _timer.setMode(0);
     read();
 }
 
