@@ -30,9 +30,7 @@ bool LedLine::update(const LedLineSettings &lineSettings, bool forceUpdate) {
             } else {
                 CRGB dst = _dst;
                 if (dst != _color_rgb) {
-                    _color_rgb.red = lerp(_color_rgb.red, dst.r, _delta.red);
-                    _color_rgb.green = lerp(_color_rgb.green, dst.g, _delta.green);
-                    _color_rgb.blue = lerp(_color_rgb.blue, dst.b, _delta.blue);
+                    _color_rgb = colorLerp(_color_rgb, dst, _delta);
                     setSolidColor(_color_rgb);
                     shouldUpdate = true;
                 }

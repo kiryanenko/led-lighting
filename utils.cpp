@@ -50,3 +50,12 @@ int nearestId(float value, const float *arr, int size) {
     }
     return lessId != -1 ? lessId : moreId;
 }
+
+
+/// Переводит value в диапозон 0..255
+double cleanColorPart(double value) {
+    long intPart = value;
+    double floatPart = value - intPart;
+    double res = abs(intPart) % 256 + abs(floatPart);
+    return value >= 0 ? res : 256 - res;
+}

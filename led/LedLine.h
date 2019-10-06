@@ -10,53 +10,6 @@
 #include "../utils.h"
 
 
-struct DRGB;
-struct DHSV;
-
-struct DRGB {
-    double red = 0;
-    double green = 100;
-    double blue = 100;
-
-    DRGB() = default;
-    DRGB(const CRGB& rgb) : red(rgb.red), green(rgb.green), blue(rgb.blue) {}
-
-    operator CRGB() const {
-        return CRGB(cleanColorPart(red), cleanColorPart(green), cleanColorPart(blue));
-    }
-
-    inline void clean() {
-        red = cleanColorPart(red);
-        green = cleanColorPart(green);
-        blue = cleanColorPart(blue);
-    }
-};
-
-
-struct DHSV {
-    double hue = 0;
-    double saturation = 255;
-    double value = 255;
-
-    DHSV() = default;
-    DHSV(const CHSV& hsv) : hue(hsv.hue), saturation(hsv.saturation), value(hsv.value) {}
-
-    operator CHSV() const {
-        return CHSV(cleanColorPart(hue), cleanColorPart(saturation), cleanColorPart(value));
-    }
-
-    inline void clean() {
-        hue = cleanColorPart(hue);
-        saturation = cleanColorPart(saturation);
-        value = cleanColorPart(value);
-    }
-
-    CRGB rgb() {
-        return CRGB(*this);
-    }
-};
-
-
 class LedLine {
     CRGB *_leds;
     int _leds_cnt;
